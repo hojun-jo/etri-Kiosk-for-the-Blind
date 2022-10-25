@@ -35,7 +35,7 @@ def etri_lang_result(text):
     # print(data['return_object']['sentence'][0]['NE'])
     result = []
     for i in data['return_object']['sentence'][0]['NE']:
-        if i['type'] == "CV_FOOD" or "AF_WARES" or "OG_OTHERS" or "QT_COUNT":
+        if i['type'] == "CV_FOOD" or "AF_WARES" or "QT_COUNT":
             print(i['text'])
             result.append(i['text'])
     
