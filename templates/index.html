@@ -1,12 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css" />
     <title>Document</title>
-  </head>
+</head>
+
   <body>
-    <h1>home</h1>
+    <header class="header">
+      <div class="header-container">
+        <h1 class="home"><span>Hansung</span> <span>KIOSK</span></h1>
+      </div>
+      <nav class="main-nav">
+        <ul class="menu-tab list">
+          <li id="면류" class="tab-list trans btn-active">라면</li>
+          <li id="밥류" class="tab-list trans">에비카레동</li>
+          <li id="분식류" class="tab-list trans">떡볶이</li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="main__container">
+        <ul class="menu-list"></ul>
+        <div class="btn-group"></div>
+      </div>
+    </main>
+    <!-- footer 주문 내역 영역 -->
+    <footer class="footer">
+      <div class="remaining-time-container">
+        남은시간 <span class="remaining-time"></span>초
+      </div>
+      <div class="selected-item-container">
+        선택한 상품 <span class="selected-item-num"></span>
+      </div>
+      <button class="order-btn order-btn-invalid">
+        <span class="total-price"></span> 결제하기
+      </button>
+      <button class="delete-all-items">전체삭제</button>
+
+      <!-- 결제 내역 모달 영역 -->
+      <div class="pay-modal-container modal-invisible">
+        <div class="pay-modal">
+          <h3 class="pay-modal-heading">주문리스트</h3>
+          <p class="pay-modal-text"><span>주문리스트</span>를 확인해 주세요.</p>
+
+          <div class="pay-list-container">
+            <div class="pay-list-head">
+              <span>메뉴</span>
+              <span>가격</span>
+            </div>
+          </div>
+
+          <div class="pay-result">
+            <span>총 수량 <span class="total-item-num"></span></span>
+            <span>총 결제금액 <span class="total-item-price"></span></span>
+          </div>
+          <div>
+            <button class="pay-result-check">확 인</button>
+            <button class="pay-result-cancel">취 소</button>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
