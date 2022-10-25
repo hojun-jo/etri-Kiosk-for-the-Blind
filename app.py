@@ -1,8 +1,7 @@
 from flask import Flask, render_template
-import db
+
 
 app = Flask(__name__)
-menu_info = db.menu_info()
 
 @app.route('/')
 @app.route('/home')
