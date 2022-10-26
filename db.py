@@ -107,7 +107,7 @@ def insert_menus():
     conn.close()
 
 # DB에 주문 내역 insert
-def insert_order():
+def insert_order(data):
     # db와 연결
     conn = sqlite3.connect(db_path)
     c = conn.cursor()
@@ -115,10 +115,6 @@ def insert_order():
     # insert 쿼리
     INSERT_SQL = "INSERT INTO orders(order_number, menu, amount, price) VALUES (?, ?, ?, ?);"
     # 데이터 한 번에 여러개 추가
-    data = (
-        (1, "라면", 2, 5000),
-        (1, "치즈라면", 1, 3000)
-    )
     c.executemany(INSERT_SQL, data)
     # 커밋 해야 실제로 db에 반영됨
     conn.commit()
