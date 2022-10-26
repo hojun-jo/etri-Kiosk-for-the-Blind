@@ -2,8 +2,12 @@ from APIs.etri_audio import etri_audio_result
 from APIs.etri_lang import etri_lang_result
 import db
 
+
+# 주문 번호 = 1
 order_number = 1
+# 테스트용 주문
 order_list = ['치즈라면', '라면', '두 개', '돈까스오므라이스']
+# 전체 메뉴 정보
 menu_info = db.menu_info()
 
 # str = "참치마요 하나, 라면 두 개, 돈까스오므라이스 주세요."
@@ -57,10 +61,11 @@ def check_menu_name(orders):
 # 주문 내역 DB에 저장
 def insert_db(orders):
     data = []
+    global order_number
     menus, amounts = split_menu_names_amounts(orders)
     for i in range(len(menus)):
         data.append((order_number, menus[i], amounts[i], amounts[i] * get_menu_price(menus[i])))
-
+    order_number += 1
     print(data)
     # db.insert_order(data)
 
@@ -77,9 +82,7 @@ def split_menu_names_amounts(orders):
 # 메뉴의 가격 찾기
 def get_menu_price(menu):
     for i in menu_info:
-        print(f"get menu price i {i}")
         if i[0] == menu:
-            print(f"i[2] {i[2]}")
             return i[2]
 
 print(order_list)

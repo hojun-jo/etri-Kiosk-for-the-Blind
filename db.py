@@ -1,6 +1,7 @@
 import sqlite3
 import os
 
+
 # 주문 갯수 문자에서 숫자로 바꿀 변수
 amount_string_to_int = { 
     "하나" : 1, "한개" : 1, 
@@ -142,7 +143,6 @@ def menu_info():
     menu_info = c.fetchall()
 
     return menu_info
-
 
 # create_table()
 # insert_menus()
