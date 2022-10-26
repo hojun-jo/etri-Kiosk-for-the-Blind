@@ -6,13 +6,12 @@ import db
 # 주문 번호 = 1
 order_number = 1
 # 테스트용 주문
-order_list = ['치즈라면', '라면', '두 개', '돈까스오므라이스']
+# order_list = ['치즈라면', '라면', '두 개', '돈까스오므라이스']
+# api 사용한 주문
+order_list = etri_lang_result(etri_audio_result())
 # 전체 메뉴 정보
 menu_info = db.menu_info()
 
-# str = "참치마요 하나, 라면 두 개, 돈까스오므라이스 주세요."
-# x = etri_lang_result(str)
-# print(x)
 
 
 # 각 문자열에서 공백 제거
@@ -66,8 +65,8 @@ def insert_db(orders):
     for i in range(len(menus)):
         data.append((order_number, menus[i], amounts[i], amounts[i] * get_menu_price(menus[i])))
     order_number += 1
-    print(data)
-    # db.insert_order(data)
+    # print(data)
+    db.insert_order(data)
 
 # 주문 내역에서 메뉴 이름, 수량 분리
 def split_menu_names_amounts(orders):
@@ -85,6 +84,7 @@ def get_menu_price(menu):
         if i[0] == menu:
             return i[2]
 
+print("===== order =====")
 print(order_list)
 remove_space(order_list)
 amount_str_to_int(order_list)

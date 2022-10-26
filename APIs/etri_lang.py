@@ -6,10 +6,7 @@ import json
 openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU_spoken"
 accessKey = "09bc8742-702f-4b0d-a46a-fb29c118dbf5"
 analysisCode = "ner"
- 
-# 언어 분석 기술(구어)
-# text = "참치마요 하나, 돈까스 두 개 주세요."
- 
+
 def etri_lang_result(text):
     requestJson = {
         "access_key": accessKey,

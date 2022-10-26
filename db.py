@@ -120,6 +120,7 @@ def insert_order(data):
     # 커밋 해야 실제로 db에 반영됨
     conn.commit()
     # 제대로 실행되었는지 출력하여 확인
+    print("===== db =====")
     c.execute('SELECT * FROM orders;')
     item_list = c.fetchall()
     for i in item_list:
