@@ -3,17 +3,6 @@ from APIs.etri_lang import etri_lang_result
 import db
 
 
-# 주문 번호 = 1
-order_number = 1
-# 테스트용 주문
-# order_list = ['치즈라면', '라면', '두 개', '돈까스오므라이스']
-# api 사용한 주문
-order_list = etri_lang_result(etri_audio_result())
-# 전체 메뉴 정보
-menu_info = db.menu_info()
-
-
-
 # 각 문자열에서 공백 제거
 def remove_space(orders):
     for i in range(len(orders)):
@@ -64,9 +53,9 @@ def insert_db(orders):
     menus, amounts = split_menu_names_amounts(orders)
     for i in range(len(menus)):
         data.append((order_number, menus[i], amounts[i], amounts[i] * get_menu_price(menus[i])))
-    order_number += 1
     # print(data)
     db.insert_order(data)
+    order_number += 1
 
 # 주문 내역에서 메뉴 이름, 수량 분리
 def split_menu_names_amounts(orders):
@@ -84,11 +73,20 @@ def get_menu_price(menu):
         if i[0] == menu:
             return i[2]
 
+
+# 주문 번호 = 1
+order_number = 1
+# 테스트용 주문
+# order_list = ['치즈라면', '라면', '두 개', '돈까스오므라이스']
+# api 사용한 주문
+order_list = etri_lang_result(etri_audio_result())
+# 전체 메뉴 정보
+menu_info = db.menu_info()
 print("===== order =====")
 print(order_list)
-remove_space(order_list)
-amount_str_to_int(order_list)
-insert_amount(order_list)
+remove_space(order_list) # 주문 정보에서 공백 제거
+amount_str_to_int(order_list) # 수량 정보 int로 변환
+insert_amount(order_list) # 수량 정보 결측시 1로 삽입
 print(order_list)
-if check_menu_name(order_list):
-    insert_db(order_list)
+if check_menu_name(order_list): # 메뉴 이름 DB에 있는지 확인
+    insert_db(order_list) # DB에 삽입

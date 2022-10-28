@@ -25,10 +25,6 @@ def create_table():
     conn = sqlite3.connect(db_path)
     c = conn.cursor()
 
-    # 테이블이 이미 존재할 경우 삭제
-    c.execute("DROP TABLE IF EXISTS orders")
-    c.execute("DROP TABLE IF EXISTS menus")
-
     # 테이블 생성
     c.execute("""
         CREATE TABLE IF NOT EXISTS orders (
@@ -43,8 +39,7 @@ def create_table():
     c.execute("""
         CREATE TABLE IF NOT EXISTS menus (
             menu text primary key,
-            category text not null,
-            price integer not null
+            category text not null
         );
     """)
 
@@ -72,27 +67,66 @@ def insert_menus():
     # insert 쿼리
     INSERT_SQL = "INSERT INTO menus(menu, category, price) VALUES (?, ?, ?);"
     # 데이터 한 번에 여러개 추가
+    # data = (
+    #     ("라면", "분식", 2500),
+    #     ("치즈라면", "분식", 3000),
+    #     ("유부우동", "분식", 2500),
+    #     ("새우튀김우동", "분식", 3600),
+    #     ("꼬치어묵우동", "분식", 3500),
+    #     ("돈까스우동정식", "분식", 5000),
+    #     ("햄치즈순두부찌개", "분식", 5200),
+    #     ("돼지고기김치찌개", "분식", 4800),
+    #     ("새우튀김알밥", "비빔밥", 4500),
+    #     ("육회비빔밥", "비빔밥", 5500),
+    #     ("에비카레동", "비빔밥", 4500),
+    #     ("치킨가라아카레동", "비빔밥", 5000),
+    #     ("콩불덮밥", "비빔밥", 4800),
+    #     ("간장돼불덮밥", "비빔밥", 4500),
+    #     ("소떡소떡", "돈까스", 3000),
+    #     ("고구마돈까스", "돈까스", 4500),
+    #     ("오므라이스", "돈까스", 3500),
+    #     ("양념치킨오므라이스", "돈까스", 5000),
+    #     ("소시지오므라이스", "돈까스", 4500),
+    #     ("돈까스오므라이스", "돈까스", 4800)
+    # )
     data = (
+        ("김치햄치즈볶음밥", "한식", 4500),
+        ("소금덮밥", "한식", 4500),
+        ("뼈다귀해장국", "한식", 4000),
+        ("소고기미역국", "한식", 4000),
+        ("냉면", "한식", 4000),
+        ("간장불고기", "한식", 4500),
+        ("제육볶음", "한식", 4500),
+        ("짜장면", "중식", 2500),
+        ("짬뽕", "중식", 2500),
+        ("계란볶음밥", "중식", 3800),
+        ("탕수육", "중식", 5000),
+        ("군만두", "중식", 3000),
+        ("떡볶이", "분식", 3000),
+        ("라볶이", "분식", 3000),
         ("라면", "분식", 2500),
-        ("치즈라면", "분식", 3000),
-        ("유부우동", "분식", 2500),
-        ("새우튀김우동", "분식", 3600),
-        ("꼬치어묵우동", "분식", 3500),
-        ("돈까스우동정식", "분식", 5000),
-        ("햄치즈순두부찌개", "분식", 5200),
-        ("돼지고기김치찌개", "분식", 4800),
-        ("새우튀김알밥", "비빔밥", 4500),
-        ("육회비빔밥", "비빔밥", 5500),
-        ("에비카레동", "비빔밥", 4500),
-        ("치킨가라아카레동", "비빔밥", 5000),
-        ("콩불덮밥", "비빔밥", 4800),
-        ("간장돼불덮밥", "비빔밥", 4500),
-        ("소떡소떡", "돈까스", 3000),
-        ("고구마돈까스", "돈까스", 4500),
-        ("오므라이스", "돈까스", 3500),
-        ("양념치킨오므라이스", "돈까스", 5000),
-        ("소시지오므라이스", "돈까스", 4500),
-        ("돈까스오므라이스", "돈까스", 4800)
+        ("순대", "분식", 3000),
+        ("오므라이스", "분식", 3800),
+        ("야채김밥", "분식", 2000),
+        ("참치김밥", "분식", 2200),
+        ("크림파스타", "양식", 3000),
+        ("토마토파스타", "양식", 3000),
+        ("알리오올리오", "양식", 3000),
+        ("연어샐러드", "양식", 3000),
+        ("감바스", "양식", 3000),
+        ("왕돈까스", "일식", 4500),
+        ("치킨까스", "일식", 4500),
+        ("치즈돈까스", "일식", 4500),
+        ("냉모밀", "일식", 2500),
+        ("우동", "일식", 2500),
+        ("김치나베", "일식", 3500),
+        ("돈까스나베", "일식", 4000),
+        ("물", "음료", 1000),
+        ("콜라", "음료", 1000),
+        ("사이다", "음료", 1000),
+        ("환타", "음료", 1000),
+        ("제로콜라", "음료", 1000),
+        ("제로사이다", "음료", 1000)
     )
     c.executemany(INSERT_SQL, data)
     # 커밋 해야 실제로 db에 반영됨
@@ -114,7 +148,7 @@ def insert_order(data):
     c = conn.cursor()
 
     # insert 쿼리
-    INSERT_SQL = "INSERT INTO orders(order_number, menu, amount, price) VALUES (?, ?, ?, ?);"
+    INSERT_SQL = "INSERT INTO orders(order_number, menu, amount) VALUES (?, ?, ?);"
     # 데이터 한 번에 여러개 추가
     c.executemany(INSERT_SQL, data)
     # 커밋 해야 실제로 db에 반영됨
@@ -130,20 +164,45 @@ def insert_order(data):
     conn.close()
 
 # DB에서 메뉴 정보 가져오기
-def menu_info():
+def menu_info(category):
     # 메뉴 정보 저장할 변수
     menu_info = []
     # db와 연결
     conn = sqlite3.connect(db_path)
     c = conn.cursor()
     # select 쿼리
-    SELECT_SQL = 'SELECT * FROM menus;'
+    SELECT_SQL = 'SELECT menu FROM menus WHERE category = "%s";' % category
 
     # select로 가져오기
     c.execute(SELECT_SQL)
     menu_info = c.fetchall()
 
+    # db와 연결 종료
+    conn.close()
     return menu_info
 
-# create_table()
-# insert_menus()
+# 테이블 삭제
+def drop_table():
+    # db와 연결
+    conn = sqlite3.connect(db_path)
+    c = conn.cursor()
+
+    # 테이블이 이미 존재할 경우 삭제
+    c.execute("DROP TABLE IF EXISTS orders")
+    c.execute("DROP TABLE IF EXISTS menus")
+    # db와 연결 종료
+    conn.close()
+
+
+drop_table()
+create_table()
+insert_menus()
+menu = {
+    "korean" : menu_info("한식"),
+    "chinese" : menu_info("중식"),
+    "schoolfood" : menu_info("분식"),
+    "Westernfood" : menu_info("양식"),
+    "japanesefood" : menu_info("일식"),
+    "beverage" : menu_info("음료")
+}
+print(menu)
